@@ -1,3 +1,4 @@
+using CrudSqlite.Data;
 using CrudSqlite.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
