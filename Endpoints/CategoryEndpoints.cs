@@ -1,5 +1,6 @@
 using CrudSqlite.Controllers;
 using CrudSqlite.Data;
+using CrudSqlite.Model;
 
 namespace CrudSqlite.Endpoints;
 
@@ -9,10 +10,10 @@ public static class CategoryEndpoints
     private static readonly PeopleControllers _peopleController = new(_context);
     public static void MapCategoryEndpoints(WebApplication app)
     {
-        app.MapGet("/peoples", _peopleController.GetAllPeoples);
-        app.MapGet("/peoples/{id}", (string id) => "Uma pessoa!");
-        app.MapPost("/peoples", () => "Cadastrar pessoa!");
-        app.MapPut("/peoples/{id}", (string id) => "Atualizar pessoa!");
-        app.MapDelete("/peoples/{id}", (string id) => "Deletar pessoa!");
+        app.MapGet("/peoples", _peopleController.GetAll);
+        app.MapGet("/peoples/{id}", (int id) => _peopleController.Find(id));
+        app.MapPost("/peoples", (People people) =>  _peopleController.Create(people));
+        app.MapPut("/peoples/{id}", (int id, People people) => _peopleController.Update(id, people));
+        app.MapDelete("/peoples/{id}", (int id) => "Deletar pessoa!");
     }
 }
